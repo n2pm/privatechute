@@ -33,9 +33,10 @@ public class MixinPlayerMoveC2SPacket {
     }
 
     private double round(double d) {
+        double tmp = Math.floor(d * 100) / 100;
         return Math.nextAfter(
-                Math.floor(d * 100) / 100,
-                sig(d)
+                tmp,
+                tmp + sig(d)
         );
     }
 
