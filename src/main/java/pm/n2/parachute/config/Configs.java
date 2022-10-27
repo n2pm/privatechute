@@ -120,7 +120,7 @@ public class Configs {
         public static final ConfigBooleanHotkeyed LIVEOVERFLOW_WORLDGUARD_BYPASS = new ConfigBooleanHotkeyed("liveOverflowWorldguardBypass", false, "", "Move very slowly and teleport before triggering onPlayerMove event on bukkit servers", "LiveOverflow onPlayerMove bypass");
         public static final ConfigBoolean LIVEOVERFLOW_DROP_DEMO_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "");
         public static final ConfigBoolean LIVEOVERFLOW_DROP_CREATIVE_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "");
-        public static final ConfigBoolean LIVEOVERFLOW_DROP_WORLDBORDER_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "");
+        public static final ConfigBoolean LIVEOVERFLOW_DROP_WORLDBORDER_PACKET = new ConfigBoolean("liveOverflowDropWorldBorderPacket", false, "", "");
 
         public TweakConfigs() {
             super(ImmutableList.of(

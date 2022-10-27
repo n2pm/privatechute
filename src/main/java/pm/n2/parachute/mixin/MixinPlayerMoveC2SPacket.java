@@ -22,12 +22,29 @@ public class MixinPlayerMoveC2SPacket {
     @Shadow
     protected double z;
 
+
+    private int sig(double d) {
+        if (d > 0) {
+            return 1;
+        } else if (d < 0) {
+            return -1;
+        }
+        return 0;
+    }
+
+    private double round(double d) {
+        return Math.nextAfter(
+                Math.floor(d * 100) / 100,
+                sig(d)
+        );
+    }
+
     @Inject(method = "<init>", at = @At("TAIL"))
     private void fuck(double x, double y, double z, float pitch, float yaw, boolean bl, boolean changePosition, boolean bl3, CallbackInfo ci) {
         if (changePosition) {
             if (Configs.TweakConfigs.LIVEOVERFLOW_BOT_MOVEMENT.getBooleanValue()) {
-                this.x = Math.floor(this.x * 100) / 100;
-                this.z = Math.floor(this.z * 100) / 100;
+                this.x = round(this.x);
+                this.z = round(this.z);
             }
         }
     }
