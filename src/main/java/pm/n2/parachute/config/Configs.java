@@ -118,6 +118,9 @@ public class Configs {
         public static final ConfigBoolean MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO = new ConfigBoolean("multiplayerDetailedVersionInfo", false, "Additional version info such as protocol and server brand shown on server selection screen", "Show version info on server selection screen");
         public static final ConfigBoolean LIVEOVERFLOW_BOT_MOVEMENT = new ConfigBoolean("liveOverflowBotMovement", false, "Move like a bot for LiveOverflow's mc server", "LiveOverflow bot movement");
         public static final ConfigBooleanHotkeyed LIVEOVERFLOW_WORLDGUARD_BYPASS = new ConfigBooleanHotkeyed("liveOverflowWorldguardBypass", false, "", "Move very slowly and teleport before triggering onPlayerMove event on bukkit servers", "LiveOverflow onPlayerMove bypass");
+        public static final ConfigBoolean LIVEOVERFLOW_DROP_DEMO_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "");
+        public static final ConfigBoolean LIVEOVERFLOW_DROP_CREATIVE_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "");
+        public static final ConfigBoolean LIVEOVERFLOW_DROP_WORLDBORDER_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -147,7 +150,9 @@ public class Configs {
                     TITLE_BAR_HIDE_GAME_STATUS,
                     MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO,
                     LIVEOVERFLOW_BOT_MOVEMENT,
-                    LIVEOVERFLOW_WORLDGUARD_BYPASS
+                    LIVEOVERFLOW_WORLDGUARD_BYPASS,
+                    LIVEOVERFLOW_DROP_DEMO_PACKET,
+                    LIVEOVERFLOW_DROP_WORLDBORDER_PACKET
             ));
         }
     }

@@ -48,9 +48,9 @@ public class MixinClientPlayerEntity {
             }
 
             // Slow all movements
-            double newX = this.lastPosX + (pos.x - this.lastPosX) * 0.03d;
-            double newY = this.lastPosY + (pos.y - this.lastPosY) * 0.03d;
-            double newZ = this.lastPosZ + (pos.z - this.lastPosZ) * 0.03d;
+            double newX = this.lastPosX + (pos.x - this.lastPosX) * 0.04d;
+            double newY = this.lastPosY + (pos.y - this.lastPosY) * 0.04d;
+            double newZ = this.lastPosZ + (pos.z - this.lastPosZ) * 0.04d;
             instance.setPosition(newX, newY, newZ);
 
             double delta = Math.pow(this.lastTpX - newX, 2) + Math.pow(this.lastTpY - newY, 2) + Math.pow(this.lastTpZ - newZ, 2);
