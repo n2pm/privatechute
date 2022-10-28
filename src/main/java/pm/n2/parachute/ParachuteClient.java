@@ -6,7 +6,6 @@ import net.minecraft.util.Formatting;
 import com.adryd.cauldron.api.command.ClientCommandManager;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-import pm.n2.parachute.command.GMSCommand;
 import pm.n2.parachute.command.ModsCommand;
 import pm.n2.parachute.command.PanoramaCommand;
 import pm.n2.parachute.render.OverlayRendererWorldEditCUI;
@@ -46,7 +45,6 @@ public class ParachuteClient implements ClientModInitializer {
 
         PanoramaCommand.register(ClientCommandManager.DISPATCHER);
         ModsCommand.register(ClientCommandManager.DISPATCHER);
-        GMSCommand.register(ClientCommandManager.DISPATCHER);
 
         OverlayRenderManager.addRenderer(new OverlayRendererWorldEditCUI());
     }

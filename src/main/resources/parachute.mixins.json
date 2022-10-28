@@ -18,6 +18,7 @@
     "MixinChestBlockEntityRenderer",
     "MixinClientConnection",
     "MixinClientPlayerEntity",
+    "MixinClientPlayerInteractionManager",
     "MixinClientPlayNetworkHandler",
     "MixinDebugRenderer",
     "MixinDisconnectedScreen",

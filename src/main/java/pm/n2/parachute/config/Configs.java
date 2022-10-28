@@ -116,11 +116,11 @@ public class Configs {
         public static final ConfigBoolean TITLE_BAR_HIDE_MODDED = new ConfigBoolean("titleBarHideModded", false, "Hides asterisk in title bar", "Title bar hide modded status");
         public static final ConfigBoolean TITLE_BAR_HIDE_GAME_STATUS = new ConfigBoolean("titleBarHideGameStatus", false, "Hides game status from title bar. eg. 3rd party multiplayer", "Title bar hide game status");
         public static final ConfigBoolean MULTIPLAYER_SCREEN_DETAILED_VERSION_INFO = new ConfigBoolean("multiplayerDetailedVersionInfo", false, "Additional version info such as protocol and server brand shown on server selection screen", "Show version info on server selection screen");
-        public static final ConfigBoolean LIVEOVERFLOW_BOT_MOVEMENT = new ConfigBoolean("liveOverflowBotMovement", false, "Move like a bot for LiveOverflow's mc server", "LiveOverflow bot movement");
-        public static final ConfigBooleanHotkeyed LIVEOVERFLOW_WORLDGUARD_BYPASS = new ConfigBooleanHotkeyed("liveOverflowWorldguardBypass", false, "", "Move very slowly and teleport before triggering onPlayerMove event on bukkit servers", "LiveOverflow onPlayerMove bypass");
-        public static final ConfigBoolean LIVEOVERFLOW_DROP_DEMO_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "");
-        public static final ConfigBoolean LIVEOVERFLOW_DROP_CREATIVE_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "");
-        public static final ConfigBoolean LIVEOVERFLOW_DROP_WORLDBORDER_PACKET = new ConfigBoolean("liveOverflowDropWorldBorderPacket", false, "", "");
+        public static final ConfigBooleanHotkeyed LIVEOVERFLOW_BOT_MOVEMENT = new ConfigBooleanHotkeyed("liveOverflowBotMovement", false, "", "Move like a bot for LiveOverflow's mc server", "LO anti-Human Bypass");
+        public static final ConfigBooleanHotkeyed LIVEOVERFLOW_WORLDGUARD_BYPASS = new ConfigBooleanHotkeyed("liveOverflowWorldguardBypass", false, "", "Move very slowly and teleport before triggering onPlayerMove event on bukkit servers", "LO onPlayerMove bypass");
+        public static final ConfigBoolean LIVEOVERFLOW_DROP_DEMO_PACKET = new ConfigBoolean("liveOverflowDropDemoPacket", false, "", "LO drop demo packet");
+        public static final ConfigBoolean LIVEOVERFLOW_DROP_GAMEMODE_PACKET = new ConfigBoolean("liveOverflowDropGameModePacket", false, "", "LO drop gamemode packet");
+        public static final ConfigBoolean LIVEOVERFLOW_DROP_WORLDBORDER_PACKET = new ConfigBoolean("liveOverflowDropWorldBorderPacket", false, "", "LO worldborder");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -152,6 +152,7 @@ public class Configs {
                     LIVEOVERFLOW_BOT_MOVEMENT,
                     LIVEOVERFLOW_WORLDGUARD_BYPASS,
                     LIVEOVERFLOW_DROP_DEMO_PACKET,
+                    LIVEOVERFLOW_DROP_GAMEMODE_PACKET,
                     LIVEOVERFLOW_DROP_WORLDBORDER_PACKET
             ));
         }

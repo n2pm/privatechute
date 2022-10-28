@@ -37,7 +37,7 @@ public class MixinClientPlayNetworkHandler {
     private void onGameStateChange(GameStateChangeS2CPacket packet, CallbackInfo ci, PlayerEntity playerEntity) {
         if (Configs.TweakConfigs.LIVEOVERFLOW_DROP_DEMO_PACKET.getBooleanValue()) {
             GameStateChangeS2CPacket.Reason reason = packet.getReason();
-            if (reason == GameStateChangeS2CPacket.DEMO_MESSAGE_SHOWN) {
+            if (reason == GameStateChangeS2CPacket.DEMO_MESSAGE_SHOWN || reason == GameStateChangeS2CPacket.GAME_WON) {
                 ci.cancel();
             }
         }
