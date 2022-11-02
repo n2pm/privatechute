@@ -6,6 +6,7 @@
   "client": [
     "IMixinBookEditScreen",
     "IMixinClickableWidget",
+    "IMixinClientConnection",
     "IMixinClientPlayerEntity",
     "IMixinEntity",
     "IMixinMinecraftClient",
