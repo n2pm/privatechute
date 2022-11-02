@@ -122,7 +122,7 @@ public class Configs {
         public static final ConfigBoolean LIVEOVERFLOW_DROP_GAMEMODE_PACKET = new ConfigBoolean("liveOverflowDropGameModePacket", false, "", "LO drop gamemode packet");
         public static final ConfigBoolean LIVEOVERFLOW_DROP_WORLDBORDER_PACKET = new ConfigBoolean("liveOverflowDropWorldBorderPacket", false, "", "LO worldborder");
         public static final ConfigBooleanHotkeyed LIVEOVERFLOW_BROKEN_ROTATIONS = new ConfigBooleanHotkeyed("liveOverflowBrokenRotations", false, "", "", "LO rotations");
-        public static final ConfigBoolean LIVEOVERFLOW_NO_ROTATIONS = new ConfigBoolean("liveOverflowBrokenRotations", false, "", "LO no rotations");
+        public static final ConfigBoolean LIVEOVERFLOW_NO_ROTATIONS = new ConfigBoolean("liveOverflowNoRotations", false, "", "LO no rotations");
 
         public TweakConfigs() {
             super(ImmutableList.of(

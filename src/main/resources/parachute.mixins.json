@@ -50,5 +50,6 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "MixinVehicleMoveC2SPacket"
   ]
 }

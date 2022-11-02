@@ -1,6 +1,7 @@
 package pm.n2.parachute.mixin;
 
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.packet.c2s.play.VehicleMoveC2SPacket;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -10,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pm.n2.parachute.config.Configs;
 
-@Mixin(PlayerMoveC2SPacket.class)
-public class MixinPlayerMoveC2SPacket {
+@Mixin(VehicleMoveC2SPacket.class)
+public class MixinVehicleMoveC2SPacket {
     @Final
     @Mutable
     @Shadow
@@ -30,13 +31,11 @@ public class MixinPlayerMoveC2SPacket {
         );
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void fuck(double x, double y, double z, float pitch, float yaw, boolean bl, boolean changePosition, boolean bl3, CallbackInfo ci) {
-        if (changePosition) {
-            if (Configs.TweakConfigs.LIVEOVERFLOW_BOT_MOVEMENT.getBooleanValue()) {
-                this.x = round(this.x);
-                this.z = round(this.z);
-            }
+    @Inject(method = "<init>(Lnet/minecraft/entity/Entity;)V", at = @At("TAIL"))
+    private void roundPosition(Entity entity, CallbackInfo ci) {
+        if (Configs.TweakConfigs.LIVEOVERFLOW_BOT_MOVEMENT.getBooleanValue()) {
+            this.x = round(entity.getX());
+            this.z = round(entity.getZ());
         }
     }
 }
