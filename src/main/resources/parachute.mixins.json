@@ -9,6 +9,8 @@
     "IMixinClientPlayerEntity",
     "IMixinEntity",
     "IMixinMinecraftClient",
+    "MixinAbstractBlock",
+    "MixinAbstractBlockState",
     "MixinAllowedAddressResolver",
     "MixinBackgroundRenderer",
     "MixinBookEditScreen",
