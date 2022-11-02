@@ -10,6 +10,7 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import pm.n2.parachute.Parachute;
 import pm.n2.parachute.mixin.IMixinClientConnection;
 
@@ -20,8 +21,53 @@ public class SheepCommand {
         dispatcher.register(command);
     }
 
+    public static void warp(Vec3d origPos, Vec3d targetPos) {
+        var mc = MinecraftClient.getInstance();
+        var player = mc.player;
+
+        var distance = origPos.distanceTo(targetPos);
+        var teleportCount = Math.ceil(distance / 5);
+
+        var deltaPos = targetPos.subtract(origPos);
+        var movePerTeleport = deltaPos.multiply(1 / teleportCount);
+        Parachute.LOGGER.info("delta: {} {} {}", deltaPos.x, deltaPos.y, deltaPos.z);
+
+        var playerX = origPos.x;
+        var playerY = origPos.y;
+        var playerZ = origPos.z;
+
+        for (var i = 0; i < teleportCount; i++) {
+            var deltaX = movePerTeleport.x;
+            var deltaY = movePerTeleport.y;
+            var deltaZ = movePerTeleport.z;
+
+            Parachute.LOGGER.info("player: {} {} {}", playerX, playerY, playerZ);
+
+            var movePacket = new PlayerMoveC2SPacket.Full(
+                    playerX + deltaX,
+                    playerY + deltaY,
+                    playerZ + deltaZ,
+                    90, 90, true);
+
+            var connection = (IMixinClientConnection) player.networkHandler.getConnection();
+            connection.invokeSendImmediately(movePacket, null);
+            Parachute.LOGGER.info("sent, doing {} more", teleportCount - i - 1);
+
+            playerX += deltaX;
+            playerY += deltaY;
+            playerZ += deltaZ;
+
+            try {
+                Thread.sleep(1000 / 20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static int execute(CauldronClientCommandSource source) {
         var mc = MinecraftClient.getInstance();
+        var player = mc.player;
 
         //var baseX = 2105584;
         //var baseY = -35;
@@ -42,52 +88,33 @@ public class SheepCommand {
         if (sheeps.size() > 0) {
             var sheep = sheeps.get(0);
 
-            // get the sheep's position
-            var pos = sheep.getPos();
-            Parachute.LOGGER.info("{} {} {}", pos.getX(), pos.getY(), pos.getZ());
+            var sheepPos = sheep.getPos();
+            var origPos = player.getPos();
+            Parachute.LOGGER.info("sheep pos: {} {} {}", sheepPos.getX(), sheepPos.getY(), sheepPos.getZ());
+            Parachute.LOGGER.info("orig pos: {} {} {}", origPos.getX(), origPos.getY(), origPos.getZ());
 
-            // teleport the player to the sheep
-            var player = mc.player;
-            var movementPacket = new PlayerMoveC2SPacket.Full(pos.getX(), pos.getY(), pos.getZ(), 90, 90, true);
-            player.networkHandler.sendPacket(movementPacket);
+            new Thread(() -> {
+                Parachute.LOGGER.info("warping to sheep");
+                warp(origPos, sheepPos);
 
-            var distance = player.distanceTo(sheep);
-            var teleportCount = Math.ceil(distance / 3.5);
-            Parachute.LOGGER.info("distance: {}, teleportCount: {}", distance, teleportCount);
+                Parachute.LOGGER.info("merking sheep");
+                player.networkHandler.sendPacket(PlayerInteractEntityC2SPacket.attack(sheep, player.isSneaking()));
 
-            var deltaPos = sheep.getPos().subtract(player.getPos());
-            var movePerTeleport = deltaPos.multiply(1 / teleportCount);
-            Parachute.LOGGER.info("deltaPos: {} {} {}", deltaPos.getX(), deltaPos.getY(), deltaPos.getZ());
-            Parachute.LOGGER.info("movePerTeleport: {} {} {}", movePerTeleport.getX(), movePerTeleport.getY(), movePerTeleport.getZ());
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-            var playerX = player.getX();
-            var playerY = player.getY();
-            var playerZ = player.getZ();
-            for (int i = 0; i < teleportCount; i++) {
-                var deltaX = movePerTeleport.getX();
-                var deltaY = movePerTeleport.getY();
-                var deltaZ = movePerTeleport.getZ();
+                Parachute.LOGGER.info("warping back");
+                warp(sheepPos, origPos);
 
-                Parachute.LOGGER.info("player: {} {} {}", playerX, playerY, playerZ);
-
-                var movePacket = new PlayerMoveC2SPacket.Full(
-                        playerX + deltaX,
-                        playerY + deltaY,
-                        playerZ + deltaZ,
-                        90, 90, true);
-
-                var connection = (IMixinClientConnection) player.networkHandler.getConnection();
-                connection.invokeSendImmediately(movePacket, null);
-                Parachute.LOGGER.info("sent, doing {} more", teleportCount - i - 1);
-
-                playerX += deltaX;
-                playerY += deltaY;
-                playerZ += deltaZ;
-            }
-
-            Parachute.LOGGER.info("merking sheep");
-            player.networkHandler.sendPacket(PlayerInteractEntityC2SPacket.attack(sheep, player.isSneaking()));
+                Parachute.LOGGER.info("done");
+            }).start();
+        } else {
+            Parachute.LOGGER.info("no sheep found");
         }
+
         return 1;
     }
 }
