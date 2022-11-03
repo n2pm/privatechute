@@ -6,9 +6,11 @@ import net.minecraft.util.Formatting;
 import com.adryd.cauldron.api.command.ClientCommandManager;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import pm.n2.parachute.command.ModsCommand;
 import pm.n2.parachute.command.PanoramaCommand;
 import pm.n2.parachute.command.SheepCommand;
+import pm.n2.parachute.impulses.Sheep;
 import pm.n2.parachute.render.OverlayRendererWorldEditCUI;
 
 public class ParachuteClient implements ClientModInitializer {
@@ -49,5 +51,9 @@ public class ParachuteClient implements ClientModInitializer {
         SheepCommand.register(ClientCommandManager.DISPATCHER);
 
         OverlayRenderManager.addRenderer(new OverlayRendererWorldEditCUI());
+
+        ClientTickEvents.START.register((client) -> {
+            Sheep.tick();
+        });
     }
 }
