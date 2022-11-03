@@ -6,6 +6,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.BlockPos;
@@ -13,6 +14,9 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import pm.n2.parachute.Parachute;
 import pm.n2.parachute.mixin.IMixinClientConnection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // any sheepers in chat? [USER WAS BANNED FOR THIS POST]
 public class Sheep {
@@ -37,6 +41,8 @@ public class Sheep {
     private static int teleportsLeft;
     private static boolean fuck = false;
 
+    private static List<Packet<?>> packets = new ArrayList<>();
+
     private static void warp() {
         var client = MinecraftClient.getInstance();
         var player = client.player;
@@ -53,8 +59,7 @@ public class Sheep {
                 playerPos.z + deltaZ,
                 90, 90, true);
 
-        var connection = (IMixinClientConnection) player.networkHandler.getConnection();
-        connection.invokeSendImmediately(movePacket, null);
+        packets.add(movePacket);
         Parachute.LOGGER.info("sent, doing {} more", teleportCount - teleportsLeft - 1);
         Parachute.LOGGER.info("teleportsLeft: {}", teleportsLeft);
 
@@ -75,7 +80,7 @@ public class Sheep {
                     case ATTACK -> {
                         Parachute.LOGGER.info("merking sheep");
                         Parachute.LOGGER.info("{} {} {}", playerPos.x, playerPos.y, playerPos.z);
-                        connection.invokeSendImmediately(PlayerInteractEntityC2SPacket.attack(sheep, player.isSneaking()), null);
+                        packets.add(PlayerInteractEntityC2SPacket.attack(sheep, player.isSneaking()));
                         Parachute.LOGGER.info("SWITCHING: RETURN");
                         stage = Stage.RETURN;
 
@@ -140,7 +145,7 @@ public class Sheep {
                         origPos.y,
                         origPos.z,
                         90, 90, true);
-                connection.invokeSendImmediately(movePacket, null);
+                packets.add(movePacket);
 
                 warping = false;
                 fuck = true;
@@ -187,6 +192,15 @@ public class Sheep {
             stage = Stage.TOWARDS;
             warping = true;
             fuck = false;
+
+            while (warping == true) {
+                tick();
+            }
+
+            var connection = (IMixinClientConnection) player.networkHandler.getConnection();
+            for (var packet : packets) {
+                connection.invokeSendImmediately(packet, null);
+            }
         } else {
             Parachute.LOGGER.info("no sheep found");
         }
