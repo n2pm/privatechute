@@ -25,8 +25,8 @@ public class Sheep {
 
     private static Vec3d movePerTeleport;
     private static Vec3d playerPos;
-    private static Vec3d sheepPos;
-    private static Vec3d origPos;
+    public static Vec3d sheepPos;
+    public static Vec3d origPos;
 
     private static LivingEntity sheep;
     private static Stage stage;
@@ -193,7 +193,7 @@ public class Sheep {
             warping = true;
             fuck = false;
 
-            while (warping == true) {
+            while (warping) {
                 tick();
             }
 
@@ -204,5 +204,10 @@ public class Sheep {
         } else {
             Parachute.LOGGER.info("no sheep found");
         }
+    }
+
+    public static void clear() {
+        origPos = null;
+        sheepPos = null;
     }
 }

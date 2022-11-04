@@ -13,6 +13,7 @@ import pm.n2.parachute.command.PanoramaCommand;
 import pm.n2.parachute.command.SheepCommand;
 import pm.n2.parachute.impulses.Sheep;
 import pm.n2.parachute.render.OverlayRendererWorldEditCUI;
+import pm.n2.parachute.render.OverlaySheepRenderer;
 
 public class ParachuteClient implements ClientModInitializer {
     private static String MOD_VERSION = "0.0.0";
@@ -52,6 +53,7 @@ public class ParachuteClient implements ClientModInitializer {
         SheepCommand.register(ClientCommandManager.DISPATCHER);
 
         OverlayRenderManager.addRenderer(new OverlayRendererWorldEditCUI());
+        OverlayRenderManager.addRenderer(new OverlaySheepRenderer());
 
         //ClientTickEvents.START.register((a) -> {
         //    Sheep.tick();

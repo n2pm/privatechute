@@ -3,16 +3,23 @@ package pm.n2.parachute.command;
 import com.adryd.cauldron.api.command.CauldronClientCommandSource;
 import com.adryd.cauldron.api.command.ClientCommandManager;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import pm.n2.parachute.impulses.Sheep;
 
 public class SheepCommand {
     public static void register(CommandDispatcher<CauldronClientCommandSource> dispatcher) {
-        LiteralArgumentBuilder<CauldronClientCommandSource> command = ClientCommandManager.literal("sheep")
+        var sheepCommand = ClientCommandManager.literal("sheep")
                 .executes((context) -> {
                     Sheep.execute();
                     return 1;
                 });
-        dispatcher.register(command);
+
+        var clearCommand = ClientCommandManager.literal("sheepclear")
+                .executes((context) -> {
+                    Sheep.clear();
+                    return 1;
+                });
+
+        dispatcher.register(sheepCommand);
+        dispatcher.register(clearCommand);
     }
 }
