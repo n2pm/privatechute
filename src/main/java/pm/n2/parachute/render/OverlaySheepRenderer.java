@@ -31,14 +31,14 @@ public class OverlaySheepRenderer extends OverlayRendererBase {
         var linesBuf = renderLines.startBuffer();
 
         for (Vec3d pos : approachPositions) {
-            LineDrawing.drawBox(new Box(pos.x - boxSize, pos.y - boxSize, pos.z - boxSize, pos.x + boxSize, pos.y + boxSize, pos.z + boxSize), RenderColors.OUTLINE_BLUE, linesBuf);
+            LineDrawing.drawBox(new Box(pos.x - boxSize, pos.y - boxSize, pos.z - boxSize, pos.x + boxSize, pos.y + boxSize, pos.z + boxSize), RenderColors.OUTLINE_BLUE, camera, linesBuf);
         }
 
         for (Vec3d pos : returnPositions) {
-            LineDrawing.drawBox(new Box(pos.x - boxSize, pos.y - boxSize, pos.z - boxSize, pos.x + boxSize, pos.y + boxSize, pos.z + boxSize), RenderColors.OUTLINE_GREEN, linesBuf);
+            LineDrawing.drawBox(new Box(pos.x - boxSize, pos.y - boxSize, pos.z - boxSize, pos.x + boxSize, pos.y + boxSize, pos.z + boxSize), RenderColors.OUTLINE_GREEN, camera, linesBuf);
         }
 
-        renderLines.endBuffer();
+        renderLines.endBuffer(camera);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class OverlaySheepRenderer extends OverlayRendererBase {
     }
 
     @Override
-    public boolean shouldUpdate() {
-        return !returnPositions.isEmpty() && !approachPositions.isEmpty();
+    public boolean shouldUpdate(Camera camera) {
+        return !returnPositions.isEmpty() && !approachPositions.isEmpty() && super.shouldUpdate(camera);
     }
 }

@@ -35,6 +35,10 @@
       {
         "id": "minecraft",
         "versions": ">=1.19"
+      },
+      {
+        "id": "cauldron",
+        "versions": ">=0.1.0-"
       }
     ]
   },
