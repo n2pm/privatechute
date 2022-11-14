@@ -34,6 +34,7 @@
     "MixinMinecraftClient",
     "MixinMinecraftClient_chatLagFix",
     "MixinMinecraftClient_drawProfilerResults",
+    "MixinMinecraftClient_reach",
     "MixinMinecraftClient_windowTitle",
     "MixinMultiplayerServerListWidget_ServerEntry",
     "MixinPlayerListHud_playerListLength",

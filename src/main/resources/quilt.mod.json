@@ -20,8 +20,12 @@
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "client_init": ["pm.n2.parachute.ParachuteClient"],
-      "modmenu": ["pm.n2.parachute.compat.modmenu.ModMenuImpl"]
+      "client_init": [
+        "pm.n2.parachute.ParachuteClient"
+      ],
+      "modmenu": [
+        "pm.n2.parachute.compat.modmenu.ModMenuImpl"
+      ]
     },
     "depends": [
       {
@@ -34,7 +38,7 @@
       },
       {
         "id": "minecraft",
-        "versions": ">=1.19"
+        "versions": ">=1.19.2"
       },
       {
         "id": "cauldron",
@@ -43,5 +47,5 @@
     ]
   },
   "mixin": "parachute.mixins.json",
-  "accessWidener" : "parachute.accesswidener"
+  "accessWidener": "parachute.accesswidener"
 }

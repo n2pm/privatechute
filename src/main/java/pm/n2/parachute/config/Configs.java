@@ -73,6 +73,7 @@ public class Configs {
         public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
         public static final ConfigBoolean POTION_EFFECT_HUD_NO_COLOR = new ConfigBoolean("potionEffectHUDNoColor", false, "Disables potion color on effect HUD", "Potion effect HUD disable color");
         public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
+        public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
 
         public FeatureConfigs() {
             super(ImmutableList.of(
@@ -82,7 +83,8 @@ public class Configs {
                     AUTO_RECONNECT_TIME,
                     POTION_EFFECT_HUD,
                     POTION_EFFECT_HUD_NO_COLOR,
-                    ARMOR_HUD
+                    ARMOR_HUD,
+                    PORTAL_SCREENS
             ));
 
             WorldDataStorage worldData = WorldDataStorage.getInstance();
@@ -124,7 +126,8 @@ public class Configs {
         public static final ConfigBooleanHotkeyed LIVEOVERFLOW_BROKEN_ROTATIONS = new ConfigBooleanHotkeyed("liveOverflowBrokenRotations", false, "", "", "LO rotations");
         public static final ConfigBoolean LIVEOVERFLOW_NO_ROTATIONS = new ConfigBoolean("liveOverflowNoRotations", false, "", "LO no rotations");
         public static final ConfigBoolean FAKE_CLOUDS_POS = new ConfigBoolean("fakeCloudPos", false, "", "Fake cloud positions");
-        public static final ConfigBooleanHotkeyed SUPPRESS_RESPAWN_PACKETS = new ConfigBooleanHotkeyed("suppressRespawnPacket", false,  "", KeybindSettings.INGAME_BOTH, "Suppress respawn packet for shitty invulnerability", "Suppress respawn packet");
+        public static final ConfigBooleanHotkeyed SUPPRESS_RESPAWN_PACKETS = new ConfigBooleanHotkeyed("suppressRespawnPacket", false, "", KeybindSettings.INGAME_BOTH, "Suppress respawn packet for shitty invulnerability", "Suppress respawn packet");
+        public static final ConfigBooleanHotkeyed REACH = new ConfigBooleanHotkeyed("reach", false, "", KeybindSettings.INGAME_BOTH, "It's reach", "Reach");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -161,7 +164,8 @@ public class Configs {
                     LIVEOVERFLOW_BROKEN_ROTATIONS,
                     LIVEOVERFLOW_NO_ROTATIONS,
                     FAKE_CLOUDS_POS,
-                    SUPPRESS_RESPAWN_PACKETS
+                    SUPPRESS_RESPAWN_PACKETS,
+                    REACH
             ));
         }
     }
