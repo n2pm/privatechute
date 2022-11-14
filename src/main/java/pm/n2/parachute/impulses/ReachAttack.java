@@ -42,12 +42,13 @@ public class ReachAttack {
         Vec3d currentPos = origPos;
 
         // Go to target
-        OverlaySheepRenderer.teleportPositions.add(origPos);
+        OverlaySheepRenderer.approachPositions.clear();
+        OverlaySheepRenderer.returnPositions.clear();
         double distancePerTeleport = (origPos.distanceTo(targetPos) - maxVanillaAttackDistance) / maxTeleportDistance;
         Vec3d delta = targetPos.subtract(origPos).multiply(1 / distancePerTeleport);
         for (int i = 0; i < Math.floor(distancePerTeleport); i++) {
             currentPos = currentPos.add(delta);
-            OverlaySheepRenderer.teleportPositions.add(currentPos);
+            OverlaySheepRenderer.approachPositions.add(currentPos);
             connection.send(new PlayerMoveC2SPacket.PositionAndOnGround(currentPos.x, currentPos.y, currentPos.z, true));
         }
 
@@ -59,7 +60,7 @@ public class ReachAttack {
         delta = origPos.subtract(currentPos).multiply(1 / distancePerTeleport);
         for (int i = 0; i < Math.floor(distancePerTeleport); i++) {
             currentPos = currentPos.add(delta);
-            OverlaySheepRenderer.teleportPositions.add(currentPos);
+            OverlaySheepRenderer.returnPositions.add(currentPos);
             connection.send(new PlayerMoveC2SPacket.PositionAndOnGround(currentPos.x, currentPos.y, currentPos.z, true));
         }
 
