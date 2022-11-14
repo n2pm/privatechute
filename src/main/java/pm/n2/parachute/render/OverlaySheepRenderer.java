@@ -12,6 +12,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import pm.n2.parachute.config.Configs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +59,11 @@ public class OverlaySheepRenderer extends OverlayRendererBase {
 
     @Override
     public boolean shouldRender() {
-        return !returnPositions.isEmpty() && !approachPositions.isEmpty();
+        return Configs.FeatureConfigs.REACH_RENDERER.getBooleanValue() && !returnPositions.isEmpty() && !approachPositions.isEmpty();
     }
 
     @Override
     public boolean shouldUpdate(Camera camera) {
-        return !returnPositions.isEmpty() && !approachPositions.isEmpty() && super.shouldUpdate(camera);
+        return Configs.FeatureConfigs.REACH_RENDERER.getBooleanValue() && !returnPositions.isEmpty() && !approachPositions.isEmpty();
     }
 }
