@@ -73,7 +73,8 @@ public class Configs {
         public static final ConfigBooleanHotkeyed POTION_EFFECT_HUD = new ConfigBooleanHotkeyed("potionEffectHUD", false, "", "Enables minimal potion effect HUD", "Potion effect HUD");
         public static final ConfigBoolean POTION_EFFECT_HUD_NO_COLOR = new ConfigBoolean("potionEffectHUDNoColor", false, "Disables potion color on effect HUD", "Potion effect HUD disable color");
         public static final ConfigBooleanHotkeyed ARMOR_HUD = new ConfigBooleanHotkeyed("armorHUD", false, "", "Enables armor HUD. \nPorted from blanket", "Armor HUD");
-        public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
+        public static final ConfigBooleanHotkeyed REACH = new ConfigBooleanHotkeyed("reach", false, "", KeybindSettings.INGAME_BOTH, "It's reach", "Reach");
+        public static final ConfigBooleanHotkeyed REACH_RENDERER = new ConfigBooleanHotkeyed("reachRenderer", false, "", "Shows path of teleports for reach", "Reach Debug Renderer");
 
         public FeatureConfigs() {
             super(ImmutableList.of(
@@ -84,7 +85,8 @@ public class Configs {
                     POTION_EFFECT_HUD,
                     POTION_EFFECT_HUD_NO_COLOR,
                     ARMOR_HUD,
-                    PORTAL_SCREENS
+                    REACH,
+                    REACH_RENDERER
             ));
 
             WorldDataStorage worldData = WorldDataStorage.getInstance();
@@ -107,7 +109,6 @@ public class Configs {
         public static final ConfigBoolean NO_SERVER_BLOCKIST = new ConfigBoolean("noMojangServerBlocklist", false, "Bypass Mojang's multiplayer server blocklist for EULA violating servers. Don't actually do this lol", "Disable Mojang's multiplayer server blocklist");
         public static final ConfigBooleanHotkeyed STEP_ASSIST_ENABLED = new ConfigBooleanHotkeyed("stepAssistEnabled", false, "", "Sets block step height to 1 block", "Step assist");
         public static final ConfigDouble STEP_ASSIST_HEIGHT = new ConfigDouble("stepAssistHeight", 1.0, 0.0, 2.0, true, "Step assist height");
-        //        public static final ConfigBooleanHotkeyed HALF_STEP = new ConfigBooleanHotkeyed("halfStep", false, "", "Step up when in air", "Half step");
         public static final ConfigBoolean BRIGADIER_STRING_ESCAPES = new ConfigBoolean("brigadierStringEscapes", false, "A backport of brigadier#90. Makes stringified NBTs support more JSON-like string escapes. by Mstrodl\nRequires a compatible server if using on multiplayer", "Brigadier better string escapes");
         public static final ConfigBoolean CUSTOM_CHAT_HISTORY_LENGTH_ENABLED = new ConfigBoolean("customChatHistoryLengthEnabled", false, "Allow for chat length to be overwritten", "Overwrite chat length");
         public static final ConfigInteger CUSTOM_CHAT_HISTORY_LENGTH = new ConfigInteger("customChatHistoryLength", 100, 1, 10000, false, "Chat length");
@@ -127,7 +128,7 @@ public class Configs {
         public static final ConfigBoolean LIVEOVERFLOW_NO_ROTATIONS = new ConfigBoolean("liveOverflowNoRotations", false, "", "LO no rotations");
         public static final ConfigBoolean FAKE_CLOUDS_POS = new ConfigBoolean("fakeCloudPos", false, "", "Fake cloud positions");
         public static final ConfigBooleanHotkeyed SUPPRESS_RESPAWN_PACKETS = new ConfigBooleanHotkeyed("suppressRespawnPacket", false, "", KeybindSettings.INGAME_BOTH, "Suppress respawn packet for shitty invulnerability", "Suppress respawn packet");
-        public static final ConfigBooleanHotkeyed REACH = new ConfigBooleanHotkeyed("reach", false, "", KeybindSettings.INGAME_BOTH, "It's reach", "Reach");
+        public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -165,7 +166,7 @@ public class Configs {
                     LIVEOVERFLOW_NO_ROTATIONS,
                     FAKE_CLOUDS_POS,
                     SUPPRESS_RESPAWN_PACKETS,
-                    REACH
+                    PORTAL_SCREENS
             ));
         }
     }

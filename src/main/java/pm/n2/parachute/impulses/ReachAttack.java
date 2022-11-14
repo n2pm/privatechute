@@ -14,8 +14,8 @@ import pm.n2.parachute.render.OverlaySheepRenderer;
 public class ReachAttack {
     private static boolean isAttacking = false;
 
-    private static final int maxTeleportDistance = 9;
-    private static final int maxVanillaAttackDistance = 4;
+    private static final int maxTeleportDistance = 8;
+    private static final double maxVanillaAttackDistance = 5.5 / 3;
 
     public static void attack(Entity target) {
         if (isAttacking) {
@@ -41,12 +41,17 @@ public class ReachAttack {
         Vec3d origPos = player.getPos();
         Vec3d currentPos = origPos;
 
-        // Go to target
         OverlaySheepRenderer.approachPositions.clear();
         OverlaySheepRenderer.returnPositions.clear();
-        double distancePerTeleport = (origPos.distanceTo(targetPos) - maxVanillaAttackDistance) / maxTeleportDistance;
+        OverlaySheepRenderer.importantPositions.clear();
+
+        OverlaySheepRenderer.importantPositions.add(origPos);
+        OverlaySheepRenderer.importantPositions.add(targetPos);
+
+        // Go to target
+        double distancePerTeleport = Math.ceil((origPos.distanceTo(targetPos)) / maxTeleportDistance);
         Vec3d delta = targetPos.subtract(origPos).multiply(1 / distancePerTeleport);
-        for (int i = 0; i < Math.floor(distancePerTeleport); i++) {
+        for (int i = 0; i < distancePerTeleport; i++) {
             currentPos = currentPos.add(delta);
             OverlaySheepRenderer.approachPositions.add(currentPos);
             connection.send(new PlayerMoveC2SPacket.PositionAndOnGround(currentPos.x, currentPos.y, currentPos.z, true));
@@ -56,13 +61,15 @@ public class ReachAttack {
         connection.send(PlayerInteractEntityC2SPacket.attack(target, false));
 
         // Return from target
-        distancePerTeleport = currentPos.distanceTo(origPos) / maxTeleportDistance;
+        distancePerTeleport = Math.ceil(currentPos.distanceTo(origPos) / maxTeleportDistance);
         delta = origPos.subtract(currentPos).multiply(1 / distancePerTeleport);
-        for (int i = 0; i < Math.floor(distancePerTeleport); i++) {
+
+        for (int i = 0; i < Math.ceil(distancePerTeleport); i++) {
             currentPos = currentPos.add(delta);
             OverlaySheepRenderer.returnPositions.add(currentPos);
             connection.send(new PlayerMoveC2SPacket.PositionAndOnGround(currentPos.x, currentPos.y, currentPos.z, true));
         }
+        connection.send(new PlayerMoveC2SPacket.PositionAndOnGround(origPos.x, origPos.y, origPos.z, true));
 
         isAttacking = false;
     }
