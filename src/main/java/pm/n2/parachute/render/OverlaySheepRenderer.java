@@ -16,7 +16,7 @@ import java.util.List;
 
 public class OverlaySheepRenderer extends OverlayRendererBase {
 
-    public static List<Vec3d> teleportPositions;
+    public static List<Vec3d> teleportPositions = List.of();
 
     public OverlaySheepRenderer() {
         this.renderObjects.add(new RenderObject(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.LINES, GameRenderer::getRenderTypeLinesShader));
