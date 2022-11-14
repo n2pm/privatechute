@@ -123,6 +123,8 @@ public class Configs {
         public static final ConfigBoolean LIVEOVERFLOW_DROP_WORLDBORDER_PACKET = new ConfigBoolean("liveOverflowDropWorldBorderPacket", false, "", "LO worldborder");
         public static final ConfigBooleanHotkeyed LIVEOVERFLOW_BROKEN_ROTATIONS = new ConfigBooleanHotkeyed("liveOverflowBrokenRotations", false, "", "", "LO rotations");
         public static final ConfigBoolean LIVEOVERFLOW_NO_ROTATIONS = new ConfigBoolean("liveOverflowNoRotations", false, "", "LO no rotations");
+        public static final ConfigBoolean FAKE_CLOUDS_POS = new ConfigBoolean("fakeCloudPos", false, "", "Fake cloud positions");
+        public static final ConfigBooleanHotkeyed SUPPRESS_RESPAWN_PACKETS = new ConfigBooleanHotkeyed("suppressRespawnPacket", false,  "", KeybindSettings.INGAME_BOTH, "Suppress respawn packet for shitty invulnerability", "Suppress respawn packet");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -157,7 +159,9 @@ public class Configs {
                     LIVEOVERFLOW_DROP_GAMEMODE_PACKET,
                     LIVEOVERFLOW_DROP_WORLDBORDER_PACKET,
                     LIVEOVERFLOW_BROKEN_ROTATIONS,
-                    LIVEOVERFLOW_NO_ROTATIONS
+                    LIVEOVERFLOW_NO_ROTATIONS,
+                    FAKE_CLOUDS_POS,
+                    SUPPRESS_RESPAWN_PACKETS
             ));
         }
     }

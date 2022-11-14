@@ -43,6 +43,7 @@
     "MixinSharedConstants",
     "MixinStringReader_brigadier",
     "MixinTeam",
+    "MixinWorldRenderer",
     "MixinYggdrasilMinecraftSessionService_authlib",
     "MixinYggdrasilUserApiService_authlib"
   ],

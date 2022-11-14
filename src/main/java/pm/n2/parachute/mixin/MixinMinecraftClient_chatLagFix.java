@@ -15,8 +15,6 @@ public class MixinMinecraftClient_chatLagFix {
     private void chatLagFix(UUID uuid, CallbackInfoReturnable<Boolean> cir) {
         if (Configs.BugFixConfigs.CHAT_LAG_FIX.getBooleanValue()) {
             cir.setReturnValue(false);
-            return;
         }
-        // Parachute.LOGGER.info("You should see a lag spike about now.");
     }
 }

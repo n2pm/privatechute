@@ -5,6 +5,7 @@ import com.adryd.cauldron.api.render.helper.OverlayRendererBase;
 import com.adryd.cauldron.api.render.helper.RenderObject;
 import com.adryd.cauldron.api.render.util.LineDrawing;
 import com.adryd.cauldron.api.render.util.QuadDrawing;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormats;
 import net.minecraft.client.render.Camera;
@@ -36,6 +37,8 @@ public class OverlayRendererWorldEditCUI extends OverlayRendererBase {
 
     @Override
     public void update(MatrixStack matrixStack, Camera camera, float tickDelta) {
+        RenderSystem.disableDepthTest();
+
         RenderObject renderLines = this.renderObjects.get(0);
         RenderObject renderQuads = this.renderObjects.get(1);
 

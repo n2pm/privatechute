@@ -1,17 +1,14 @@
 package pm.n2.parachute;
 
+import com.adryd.cauldron.api.command.ClientCommandManager;
 import com.adryd.cauldron.api.render.helper.OverlayRenderManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
 import net.minecraft.util.Formatting;
-import com.adryd.cauldron.api.command.ClientCommandManager;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
-import org.quiltmc.qsl.lifecycle.api.client.event.ClientWorldTickEvents;
 import pm.n2.parachute.command.ModsCommand;
 import pm.n2.parachute.command.PanoramaCommand;
 import pm.n2.parachute.command.SheepCommand;
-import pm.n2.parachute.impulses.Sheep;
 import pm.n2.parachute.render.OverlayRendererWorldEditCUI;
 import pm.n2.parachute.render.OverlaySheepRenderer;
 

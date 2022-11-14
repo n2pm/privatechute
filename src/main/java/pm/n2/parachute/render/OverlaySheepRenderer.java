@@ -8,9 +8,16 @@ import com.mojang.blaze3d.vertex.VertexFormats;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import pm.n2.parachute.impulses.Sheep;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+
+import java.util.List;
 
 public class OverlaySheepRenderer extends OverlayRendererBase {
+
+    public static List<Vec3d> teleportPositions;
+
     public OverlaySheepRenderer() {
         this.renderObjects.add(new RenderObject(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.LINES, GameRenderer::getRenderTypeLinesShader));
     }
@@ -21,10 +28,9 @@ public class OverlaySheepRenderer extends OverlayRendererBase {
             var renderLines = this.renderObjects.get(0);
             var linesBuf = renderLines.startBuffer();
 
-            var origPos = Sheep.origPos;
-            var sheepPos = Sheep.sheepPos;
-
-            LineDrawing.drawLine(origPos.x, origPos.y, origPos.z, sheepPos.x, sheepPos.y, sheepPos.z, RenderColors.OUTLINE_BLUE, linesBuf);
+            for (Vec3d position : teleportPositions) {
+                LineDrawing.drawBox(new Box(new BlockPos(position)), RenderColors.OUTLINE_BLUE, linesBuf);
+            }
 
             renderLines.endBuffer();
         }
@@ -32,6 +38,6 @@ public class OverlaySheepRenderer extends OverlayRendererBase {
 
     @Override
     public boolean shouldRender() {
-        return Sheep.sheepPos != null && Sheep.origPos != null;
+        return !teleportPositions.isEmpty();
     }
 }
