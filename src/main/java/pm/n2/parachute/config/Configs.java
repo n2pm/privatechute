@@ -129,7 +129,10 @@ public class Configs {
         public static final ConfigBoolean FAKE_CLOUDS_POS = new ConfigBoolean("fakeCloudPos", false, "", "Fake cloud positions");
         public static final ConfigBooleanHotkeyed SUPPRESS_RESPAWN_PACKETS = new ConfigBooleanHotkeyed("suppressRespawnPacket", false, "", KeybindSettings.INGAME_BOTH, "Suppress respawn packet for shitty invulnerability", "Suppress respawn packet");
         public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
-        public static final ConfigBooleanHotkeyed FASTMINE = new ConfigBooleanHotkeyed("fastMine", false, "","Breaks blocks faster", "Fast Break");
+        public static final ConfigBooleanHotkeyed FASTMINE = new ConfigBooleanHotkeyed("fastBreak", false, "","Breaks blocks faster", "Fast Break");
+        public static final ConfigBooleanHotkeyed CIVBREAK = new ConfigBooleanHotkeyed("civBreak", false, "","Instant break the same block", "Civ Break");
+        public static final ConfigBooleanHotkeyed NO_BREAK_COOLDOWN = new ConfigBooleanHotkeyed("noBreakCooldown", false, "","no block breaking cooldown", "No break cooldown");
+        public static final ConfigBooleanHotkeyed NO_BREAK_CANCEL = new ConfigBooleanHotkeyed("noBreakCancel", false, "","dont cancel block breaking progess when stopping mining", "No break cancel");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -168,7 +171,9 @@ public class Configs {
                     FAKE_CLOUDS_POS,
                     SUPPRESS_RESPAWN_PACKETS,
                     PORTAL_SCREENS,
-                    FASTMINE
+                    FASTMINE,
+                    CIVBREAK,
+                    NO_BREAK_COOLDOWN,NO_BREAK_CANCEL
             ));
         }
     }
