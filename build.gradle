@@ -30,7 +30,7 @@ repositories {
 
 dependencies {
     minecraft libs.minecraft
-    mappings variantOf(libs.quilt.mappings) { classifier 'intermediary-v2' }
+    mappings variantOf(libs.yarn) { classifier 'v2' }
 
     modImplementation libs.quilt.loader
     modImplementation libs.quilted.fabric.api

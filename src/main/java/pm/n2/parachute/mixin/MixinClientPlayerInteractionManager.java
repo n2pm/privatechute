@@ -4,8 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
+import net.minecraft.client.network.PendingUpdateManager;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
-import net.minecraft.unmapped.C_czisrdmd;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.GameMode;
@@ -36,10 +36,8 @@ public abstract class MixinClientPlayerInteractionManager {
     @Unique
     @Nullable
     BlockPos lastBlockBreak;
-
     @Shadow
     public abstract boolean breakBlock(BlockPos pos);
-
     @Shadow
     private int blockBreakingCooldown;
 
@@ -77,9 +75,10 @@ public abstract class MixinClientPlayerInteractionManager {
             BlockState blockState = this.client.world.getBlockState(pos);
             if (blockState.calcBlockBreakingDelta(this.client.player, this.client.player.world, pos) >= 0.7F) {
                 this.breakBlock(pos);
-                try (C_czisrdmd c_czisrdmd = ((IMixinClientWorld) this.client.world).invokeM_lvsrwztn().m_rhbdpkkw()) {
-                    this.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, pos, direction, c_czisrdmd.m_gqtwgmpw()));
-                    this.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, direction, c_czisrdmd.m_gqtwgmpw()));
+                try (PendingUpdateManager pendingUpdateManager = ((IMixinClientWorld) this.client.world).invokeGetPendingUpdateManager().incrementSequence()) {
+                    this.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, pos, direction, pendingUpdateManager.getSequence()));
+                    pendingUpdateManager.incrementSequence();
+                    this.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, direction, pendingUpdateManager.getSequence()));
                 }
                 cir.setReturnValue(true);
             }
@@ -93,8 +92,8 @@ public abstract class MixinClientPlayerInteractionManager {
 
     private boolean civBreak(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
         if (Configs.TweakConfigs.CIVBREAK.getBooleanValue() && this.lastBlockBreak != null && this.lastBlockBreak.equals(pos)) {
-            try (C_czisrdmd c_czisrdmd = ((IMixinClientWorld) this.client.world).invokeM_lvsrwztn().m_rhbdpkkw()) {
-                this.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, direction, c_czisrdmd.m_gqtwgmpw()));
+            try (PendingUpdateManager pendingUpdateManager = ((IMixinClientWorld) this.client.world).invokeGetPendingUpdateManager().incrementSequence()) {
+                this.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, direction, pendingUpdateManager.getSequence()));
             }
             this.breakBlock(pos);
             cir.setReturnValue(true);
