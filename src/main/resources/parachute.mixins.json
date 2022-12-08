@@ -8,6 +8,7 @@
     "IMixinClickableWidget",
     "IMixinClientConnection",
     "IMixinClientPlayerEntity",
+    "IMixinClientWorld",
     "IMixinEntity",
     "IMixinMinecraftClient",
     "MixinAbstractBlock",

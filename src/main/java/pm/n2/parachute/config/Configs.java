@@ -129,6 +129,7 @@ public class Configs {
         public static final ConfigBoolean FAKE_CLOUDS_POS = new ConfigBoolean("fakeCloudPos", false, "", "Fake cloud positions");
         public static final ConfigBooleanHotkeyed SUPPRESS_RESPAWN_PACKETS = new ConfigBooleanHotkeyed("suppressRespawnPacket", false, "", KeybindSettings.INGAME_BOTH, "Suppress respawn packet for shitty invulnerability", "Suppress respawn packet");
         public static final ConfigBoolean PORTAL_SCREENS = new ConfigBoolean("portalScreens", false, "Allow opening screens whilst in portals", "Portal Screens");
+        public static final ConfigBooleanHotkeyed FASTMINE = new ConfigBooleanHotkeyed("fastMine", false, "","Breaks blocks faster", "Fast Break");
 
         public TweakConfigs() {
             super(ImmutableList.of(
@@ -166,7 +167,8 @@ public class Configs {
                     LIVEOVERFLOW_NO_ROTATIONS,
                     FAKE_CLOUDS_POS,
                     SUPPRESS_RESPAWN_PACKETS,
-                    PORTAL_SCREENS
+                    PORTAL_SCREENS,
+                    FASTMINE
             ));
         }
     }
