@@ -93,9 +93,6 @@ public abstract class MixinClientPlayerInteractionManager {
 
     private boolean civBreak(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
         if (Configs.TweakConfigs.CIVBREAK.getBooleanValue() && this.lastBlockBreak != null && this.lastBlockBreak.equals(pos)) {
-            System.out.println("Meow ======");
-            System.out.println(this.lastBlockBreak);
-            System.out.println(pos);
             try (C_czisrdmd c_czisrdmd = ((IMixinClientWorld) this.client.world).invokeM_lvsrwztn().m_rhbdpkkw()) {
                 this.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, direction, c_czisrdmd.m_gqtwgmpw()));
             }
